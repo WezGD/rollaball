@@ -13,13 +13,10 @@ public class PlayerController : MonoBehaviour
     public GameObject winTextObject;
 
     private Rigidbody rb;
-
     private float movementX;
     private float movementY;
-
     private int count;
 
-    // Start is called before the first frame update
     void Start()
     {
         winTextObject.SetActive(false);
@@ -31,10 +28,20 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-        rb.AddForce(movement * speed);
+
+        if (movement.magnitude > 0.1f)
+        {
+            rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+
+            // Get the target rotation, but only affect the Y axis
+            Quaternion targetRotation = Quaternion.LookRotation(movement.normalized);
+            Quaternion newRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, newRotation, Time.fixedDeltaTime * 10f));
+        }
     }
 
-    private void OnMove (InputValue movementValue)
+    private void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
