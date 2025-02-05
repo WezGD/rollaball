@@ -9,7 +9,6 @@ namespace Valve.VR.InteractionSystem.Sample
     public class BallController : MonoBehaviour
     {
         public Transform Joystick;
-        public GameObject enemy;
 
         public SteamVR_Action_Vector2 moveAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("platformer", "Move");
         public SteamVR_Action_Boolean jumpAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("platformer", "Jump");
@@ -20,11 +19,13 @@ namespace Valve.VR.InteractionSystem.Sample
 
         private Interactable interactable;
         private Rigidbody catRb;
+        private EnemyMovement enemy;
 
         private void Start()
         {
             interactable = GetComponent<Interactable>();
             catRb = GameObject.Find("/Cat").GetComponent<Rigidbody>();
+            enemy = GameObject.Find("/Map/Enemy").GetComponent<EnemyMovement>();
         }
 
         private void Update()
@@ -36,9 +37,9 @@ namespace Valve.VR.InteractionSystem.Sample
             {
                 SteamVR_Input_Sources hand = interactable.attachedToHand.handType;
 
-                if (!enemy.activeInHierarchy)
+                if (enemy != null && !enemy.followTarget)
                 {
-                    enemy.SetActive(true);
+                    enemy.GetComponent<EnemyMovement>().followTarget = true;
                 }
                 
                 Vector2 m = moveAction[hand].axis;

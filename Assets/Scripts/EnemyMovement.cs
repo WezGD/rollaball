@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class EnemyMovement : MonoBehaviour
 {
 
     public Transform player;
+
+    public bool followTarget = false;
 
     private NavMeshAgent navMeshAgent;
 
@@ -19,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player != null)
+        if (player != null && followTarget)
         {
             navMeshAgent.SetDestination(player.position);
         }
