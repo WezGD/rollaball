@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85480da87762944399dab6c99985eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 173732, guid: 81fc1450441aca64e8cc1a0e14b1aa77, type: 3}
+  arrowPrefab: {fileID: 173732, guid: 1b1420ed29346af4ca22bdf8621b7fe9, type: 3}
   arrowNockTransform: {fileID: 413922}
   nockDistance: 0.1
   lerpCompleteDistance: 0.08

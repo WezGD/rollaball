@@ -48,13 +48,18 @@ public class PlayerController : MonoBehaviour
         movementY = movementVector.y;
     }
 
+    public void PickupObject(GameObject obj)
+    {
+        obj.SetActive(false);
+        count++;
+        SetCountText();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
-            other.gameObject.SetActive(false);
-            count++;
-            SetCountText();
+            PickupObject(other.gameObject);
         }
     }
 
