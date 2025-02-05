@@ -13,10 +13,18 @@ public class ArrowPickupHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit");
         if (other.gameObject.CompareTag("PickUp"))
         {
             pc.PickupObject(other.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            EnemyMovement enemy = collision.transform.parent.GetComponent<EnemyMovement>();
+            enemy.HitEnemy();
         }
     }
 }

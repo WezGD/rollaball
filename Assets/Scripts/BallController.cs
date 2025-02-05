@@ -53,12 +53,12 @@ namespace Valve.VR.InteractionSystem.Sample
             float rot = transform.eulerAngles.y;
             movement = Quaternion.AngleAxis(rot, Vector3.up) * movement;
 
-            if (jump)
+            if (jump && catRb != null)
             {
                 catRb.AddForce(new Vector3(0.0f, this.upMult, 0.0f));
             }
 
-            if (movement.magnitude > 0.1f)
+            if (movement.magnitude > 0.1f && catRb != null)
             {
                 catRb.MovePosition(catRb.position + movement * speed * Time.deltaTime);
 
